@@ -1,16 +1,23 @@
+import 'package:dashdriver/AllScreen/registrationScreen.dart';
+import 'package:dashdriver/Models/pushNotificationModel.dart';
 import 'package:dashdriver/tabPages/earningTabPage.dart';
 import 'package:dashdriver/tabPages/homeTabPage.dart';
 import 'package:dashdriver/tabPages/profileTabPage.dart';
 import 'package:dashdriver/tabPages/ratingTabPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 class MainScreen extends StatefulWidget {
   static const String idScreen = "main";
   @override
   _MainScreenState createState() => _MainScreenState();
 }
-
 class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
+  late final FirebaseMessaging _messaging;
+
   TabController? tabController;
   int selectedIndex=0;
   void onItemClicked(int index){
@@ -21,8 +28,10 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   }
   @override
   void initState() {
+
     tabController= TabController(length: 4, vsync: this);
   }
+
   @override
   void dispose() {
   tabController!.dispose();
@@ -41,7 +50,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home),
           label: 'Home',
           ),
@@ -56,7 +65,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
           ),
           ],
         unselectedItemColor: Colors.black54,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Color(0xff00ACA4),
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyle(fontSize: 12.0),
         showUnselectedLabels: true,

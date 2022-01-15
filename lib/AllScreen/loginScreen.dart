@@ -4,6 +4,7 @@ import 'package:dashdriver/AllWidgets/progressDialog.dart';
 import 'package:dashdriver/configMaps.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -16,100 +17,73 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 130.0,),
-              /*Image(
-                image: AssetImage('images/taxi.png'),
-                width: 390.0,
-                height: 250.0,
-                alignment: Alignment.center,
-              ),*/
-              Text(
-                "SHARIFY",
-                style: TextStyle(fontSize: 35,fontFamily: "Brand Bolt",color:Colors.white),
-              ),
-              SizedBox(
-                height:20.0,
-              ),
-              Text(
-                "Login as Driver",
-                style: TextStyle(fontSize: 24,fontFamily: "Brand Bolt",color:Colors.white),
-              ),
-              Padding(padding: EdgeInsets.all(25.0),
+              const SizedBox(height: 130.0,),
+             const Center(child:Text(
+                "D",
+                style: TextStyle(fontSize: 130,fontFamily: "Brand Bolt",color:Color(0xff00ACA4),fontWeight: FontWeight.bold,),
+              )),
+             const Padding(
+               padding: EdgeInsets.fromLTRB(35, 0, 0, 0),
+               child:Text(
+                "Welcome back!",
+                style: TextStyle(fontSize: 32,fontFamily: "Brand Bolt",color:Colors.black,fontWeight: FontWeight.bold),
+              )),
+              const SizedBox(height: 15,),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(35, 0, 0, 0),
+                child:Text(
+                "Please login to Your Account!",
+                style: TextStyle(fontSize: 18,fontFamily: "Brand Bolt"),
+              )),
+              Padding(padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: 15.0,),
+                    const SizedBox(height: 15.0,),
                     TextField(
                       controller: emailTextEditingController,
                       keyboardType: TextInputType.emailAddress,
-                      cursorColor: Colors.white,
-                      decoration: InputDecoration(
-                        fillColor: Color(0x225C0D0D),
-                        labelText:"Email",
-                        hintText: "e.g: Albert John",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(23.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white,width: 2.0),
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        labelStyle: TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.white
-                        ),
+                      cursorColor: Colors.black,
+                      decoration: const InputDecoration(
+                        fillColor: Color(0xff00ACA4),
+                        hintText: "Email Address",
                         hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10.0,
+                          fontSize: 15.0,
                         ),
                       ),
                     ),
-                    SizedBox(height: 15.0,),
+                    const  SizedBox(height: 15.0,),
                     TextField(
                       controller: passwordTextEditingController,
                       obscureText: true,
-                      decoration: InputDecoration(
-                        fillColor: Color(0x225C0D0D),
-                        labelText:"password",
-                        hintText: "e.g: ******",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(23.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white,width: 2.0),
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        labelStyle: TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.white
-                        ),
+                      decoration: const InputDecoration(
+                        fillColor: Colors.black,
+                        hintText: "Password",
                         hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10.0,
+                          fontSize: 15.0,
                         ),
                       ),
                     ),
-                    SizedBox(height: 24.0,),
+                    const  SizedBox(height: 24.0,),
                     RaisedButton(
-                      color: Color(0x9a095ed7),
+                      color: Color(0xff00ACA4),
                       textColor: Colors.white,
-                      child: Container(
+                      child: SizedBox(
                         height: 50.0,
-                        child: Center(
-                          child: Text(
+                        child: const Center(
+                          child:Text(
                             "Login",
                             style:  TextStyle(fontFamily: "Brand Bolt", fontSize: 18.0),
                           ),
                         ),
                       ),
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(24),
-                      ),
+
                       onPressed: (){
                         if(!emailTextEditingController.text.contains("@")){
                           displayToastMessage("Email address is not correct", context);
@@ -125,15 +99,16 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 30,),
               FlatButton(
                 onPressed: ()
                 {
                   Navigator.pushNamedAndRemoveUntil(context, RegistrationScreen.idScreen, (route) => false);
                 },
-                child: Text(
-                  "Do not have account? Register here",
-                  style:TextStyle(color:Colors.white,),
-                ),
+                child: const Center(child:Text(
+                  "Register here",
+                  style:TextStyle(color:Colors.black,fontSize: 20),
+                )),
               )
             ],
           ),
@@ -179,7 +154,5 @@ class LoginScreen extends StatelessWidget {
       Navigator.pop(context);
       displayToastMessage("no account for this record! please register first", context);
     }
-
   }
-
 }

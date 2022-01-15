@@ -13,14 +13,12 @@ String mapKey="AIzaSyAdCZ8sH4YKUOVNFLlhIm1onR001uJIPAM";
 
 int numberOfRidersSeatsCount=0;
 int maxNumberOfRidersSeats=4;
-
-
 Position? currentPosition;
 
 User? firebaseUser;
 final assetAudioPlayer = AssetsAudioPlayer();
 Users? userCurrentInfo;
-Drivers? driversInformation;
+Drivers? driversInformation=Drivers(name: "",email: "",phone: "",id: "",car_color: "",car_model: "",car_number: "",);
 
 User? currentfirebaseUSer;
 Color driverStatusColor = Colors.black;
@@ -30,4 +28,4 @@ StreamSubscription<Position>? rideStreamSubscription;
 String title="No ratings Yet";
 
 double starCounter=0.0;
-String rideType="sharing";
+String rideType="notSelected";

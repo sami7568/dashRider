@@ -11,7 +11,7 @@ class HistoryScreen extends StatelessWidget {
             title: Center(
               child: Text('History'),
             ),
-            backgroundColor: Colors.blue,
+            backgroundColor: Color(0xff00ACA4),
             leading: IconButton(
               onPressed: (){
                 Navigator.pop(context);

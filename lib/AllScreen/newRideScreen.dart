@@ -137,7 +137,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
             right: 0.0,
             bottom: 0.0,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(16.0),
@@ -153,7 +153,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
               ),
               height: 270.0,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 18.0),
+                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 18.0),
                 child: Column(
                   children: [
                     Text(
@@ -161,37 +161,40 @@ class _NewRideScreenState extends State<NewRideScreen> {
                       style: TextStyle(
                           fontSize: 14.0,
                           fontFamily: "Brand Bolt",
-                          color: Colors.deepPurple),
+                          color: Colors.black),
                     ),
-                    SizedBox(
-                      height: 6.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          widget.rideDetails!.rider_name!,
-                          style: TextStyle(
-                              fontFamily: "Brand Bolt", fontSize: 24.0),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 10.0),
-                          child: Icon(Icons.phone_android),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(8, 10, 30, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.rideDetails!.rider_name!,
+                              style: TextStyle(
+                                  fontFamily: "Brand Bolt", fontSize: 24.0),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 10.0),
+                              child: Icon(Icons.call,color: Color(0xff00ACA4),),
+                            )
+                          ],
                         )
-                      ],
                     ),
+                    Divider(thickness: 2,),
                     SizedBox(
-                      height: 26.0,
+                      height: 16.0,
                     ),
                     Row(
                       children: [
-                        Image.asset(
+                        /*    Image.asset(
                           'images/pickicon.png',
                           height: 16.0,
                           width: 16.0,
                         ),
+                    */
+                        Text("From :"),
                         SizedBox(
-                          width: 18,
+                          width: 10,
                         ),
                         Expanded(
                           child: Container(
@@ -211,13 +214,14 @@ class _NewRideScreenState extends State<NewRideScreen> {
                     ),
                     Row(
                       children: [
-                        Image.asset(
+                        /*Image.asset(
                           'images/desticon.png',
                           height: 16.0,
                           width: 16.0,
-                        ),
+                        ),*/
+                        Text("To :     "),
                         SizedBox(
-                          width: 18,
+                          width: 10,
                         ),
                         Expanded(
                           child: Container(
@@ -232,30 +236,36 @@ class _NewRideScreenState extends State<NewRideScreen> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 15,),
+                    Divider(thickness: 2,),
                     SizedBox(
-                      height: 26.0,
+                      height: 10.0,
                     ),
                     Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: RaisedButton(
+                      padding: EdgeInsets.fromLTRB(70, 0, 70, 0),
+                      child:MaterialButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)
+                          ),
+
                           onPressed: () async
                           {
                             if(status=="accepted"){
                               status="arrived";
-                            String rideRequestId =widget.rideDetails!.rideRequestId!;
-                            newRequestsRef.child(rideRequestId).child("status").set(status);
+                              String rideRequestId =widget.rideDetails!.rideRequestId!;
+                              newRequestsRef.child(rideRequestId).child("status").set(status);
 
-                            setState(() {
-                              btn_title="Start Trip";
-                              btn_color= Colors.blue;
-                            });
-                            showDialog(
-                              context:context,
-                              barrierDismissible: false,
-                              builder: (BuildContext context)=>ProgressDialog(message: "Please Wait... "),
-                            );
-                            await getPlaceDirection(widget.rideDetails!.pickup!, widget.rideDetails!.dropoff!);
-                            Navigator.pop(context);
+                              setState(() {
+                                btn_title="Start Trip";
+                                btn_color= Colors.blue;
+                              });
+                              showDialog(
+                                context:context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context)=>ProgressDialog(message: "Please Wait... "),
+                              );
+                              await getPlaceDirection(widget.rideDetails!.pickup!, widget.rideDetails!.dropoff!);
+                              Navigator.pop(context);
                             }
                             else if(status=="arrived"){
                               status="onride";
@@ -272,28 +282,25 @@ class _NewRideScreenState extends State<NewRideScreen> {
                               endTheTrip();
                             }
                           },
-                          color: btn_color,
-                          child: Padding(
-                            padding: EdgeInsets.all(17.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  btn_title,
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                Icon(
-                                  Icons.directions_car,
-                                  color: Colors.white,
-                                  size: 26,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ))
+                          color:Color(0xff00ACA4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                /*"btn_title"*/"Arrived",
+                                style: TextStyle(
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              Icon(
+                                Icons.directions_car,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ],
+                          )),
+                    ),
                   ],
                 ),
               ),

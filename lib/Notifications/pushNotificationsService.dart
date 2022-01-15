@@ -12,28 +12,24 @@ import '../main.dart';
 
 class PushNotificationsService{
  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+ Future initialize(context) async {
+   // workaround for onLaunch: When the app is completely closed (not in the background) and opened directly from the push notification
+   firebaseMessaging.getInitialMessage().then((RemoteMessage? message) {
+     retrieveRideRequestInfo(getRideRequestId(message!.data), context);
+   });
 
-/*
- Future initialize(context)async
- {
-   print("firebase message initializing");
-    firebaseMessaging.configure(
-      onMessage: (Map<String,dynamic> message) async{
-        retrieveRideRequestInfo(getRideRequestId(message),context);
-        print("onMessage: $message");
-      },
+   // onMessage: When the app is open and it receives a push notification
+   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+     retrieveRideRequestInfo(getRideRequestId(message.data), context);
+   });
 
-      onLaunch: (Map<String,dynamic> message)async{
-        retrieveRideRequestInfo(getRideRequestId(message),context);
-        },
-      onResume: (Map<String,dynamic> message) async{
-        retrieveRideRequestInfo(getRideRequestId(message),context);
-      }
-    );
-  }
-*/
+   // replacement for onResume: When the app is in the background and opened directly from the push notification.
+   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+     retrieveRideRequestInfo(getRideRequestId(message.data), context);
+   });
+ }
 
-  getToken() async
+ getToken() async
   {
     String? token =await firebaseMessaging.getToken();
     print('this is token');
@@ -42,8 +38,6 @@ class PushNotificationsService{
     firebaseMessaging.subscribeToTopic("alldrivers");
     firebaseMessaging.subscribeToTopic("allusers");
   }
-
-
   String getRideRequestId(Map<String, dynamic> message){
     String rideRequestId="";
     print("getting ride resquest id");
@@ -69,7 +63,6 @@ class PushNotificationsService{
         assetAudioPlayer.open(Audio("sounds/alert.mp3"));
         assetAudioPlayer.play();
         final routeArgs = dataSnapshot.snapshot.value as Map;
-
         double pickupLocationLat= double.parse(routeArgs['pickUp']['latitude'].toString());
         double pickupLocationLng= double.parse(routeArgs['pickUp']['longitude'].toString());
         String pickUpAddress= routeArgs['pick_Up_Address'].toString();

@@ -11,22 +11,23 @@ class ProfileTabPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Scaffold(
-        backgroundColor: Colors.black87,
+        backgroundColor: Color(0xff00ACA4),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                driversInformation!.name! +" ",
+                driversInformation!.name!.isNotEmpty?
+                driversInformation!.name!: "sami ",
                 style: TextStyle(
-                  fontSize: 65.0,
+                  fontSize: 45.0,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontFamily: "Signatra"
                 ),
               ),
               Text(
-                title + " driver",
+                title.isEmpty?" driver":title,
                 style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.blueGrey[200],
@@ -42,38 +43,19 @@ class ProfileTabPage extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(
-                height: 40.0,
+              InfoCard(driversInformation!.phone!.isEmpty? " 38048747679":driversInformation!.phone, Icons.phone,),
+              InfoCard(driversInformation!.email!.isEmpty ?" sami@gmail.com":driversInformation!.email!,
+                 Icons.email
               ),
-              InfoCard(
-                text: driversInformation!.phone! +" ",
-                icon: Icons.phone,
-                onPressed: () async {
-                  print('this is your phone ');
-                },
-              ),
-              InfoCard(
-                text: driversInformation!.email! +" ",
-                icon: Icons.email,
-                onPressed: () async {
-                  print('this is your email ');
-                },
-              ),
-              InfoCard(text: driversInformation!.car_color! + " "+ driversInformation!.car_number!+ " "+ driversInformation!.car_model!+" ",
-                  icon: Icons.car_repair,
-                  onPressed: ()async{
-                      print('this is your car information');
-                  }),
+              InfoCard( driversInformation!.car_number!.isEmpty?"BMW Black 930A" :driversInformation!.car_color!+driversInformation!.car_model!+driversInformation!.car_number!,Icons.car_repair),
               GestureDetector(
                 onTap: (){
                   Geofire.removeLocation(driversInformation!.id!);
                   rideRequestRef.onDisconnect();
                   rideRequestRef.remove();
-                 // rideRequestRef = null;
-
+                  rideRequestRef = null;
                   FirebaseAuth.instance.signOut();
                   Navigator.pushNamedAndRemoveUntil(context, LoginScreen.idScreen, (route) => false);
-
                 },
                 child: Card(
                   color: Colors.red,
@@ -103,35 +85,27 @@ class ProfileTabPage extends StatelessWidget {
   }
 }
 
-class InfoCard extends StatelessWidget {
-  final String? text;
-  final IconData? icon;
-  Function? onPressed;
-
-  InfoCard({@required this.text,@required this.icon,@required this.onPressed});
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed!(),
-      child: Card(
-        color: Colors.white,
-        margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 25.0),
-        child: ListTile(
-          leading: Icon(
-            icon,
-            color: Colors.black87,
-          ),
-          title: Text(
+InfoCard(String? text, IconData? icon){
+  return GestureDetector(
+    onTap: null,
+    child: Card(
+      color: Colors.white,
+      margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 25.0),
+      child: ListTile(
+        leading: Icon(
+          icon,
+          color: Colors.black87,
+        ),
+        title: Text(
             text!,
             style:TextStyle(
-              color: Colors.black87,
-              fontSize: 16.0,
-              fontFamily: "Brand Bolt"
+                color: Colors.black87,
+                fontSize: 16.0,
+                fontFamily: "Brand Bolt"
             )
-          ),
-
         ),
+
       ),
-    );
-  }
+    ),
+  );
 }

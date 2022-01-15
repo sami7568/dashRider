@@ -16,51 +16,61 @@ class CollectFareDialog extends StatelessWidget {
       ),
       backgroundColor: Colors.transparent,
       child: Container(
+        height: 440,
         margin: EdgeInsets.all(15.0),
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(55.0),
         ),
+        child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 50),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: 22.0,),
-            Text("Trip Fare (" + rideType.toUpperCase() + ")"),
-            SizedBox(height: 22.0,),
-            Divider(),
-            SizedBox(height: 16.0,),
-            Text("\$$fareAmount",style: TextStyle(fontSize: 55.0,fontFamily: "Brand Bolt"),),
-            SizedBox(height: 16.0,),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child:Text('This is the total trip amount! it has been charged to the rider',textAlign: TextAlign.center,),
+            Column(
+              children: [
+                Text("Trip Fare (" + rideType.toUpperCase() + ")",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),),
+                SizedBox(height: 30,),
+                Divider(thickness: 3,),
+              ],
             ),
-            SizedBox(height: 30.0,),
+            Text(fareAmount.toString(),style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.bold, fontFamily: "Brand Bolt"),),
             Padding(
-              padding:EdgeInsets.symmetric(horizontal: 16.0),
-              child: RaisedButton(
-                onPressed: ()async {
+                padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                child:MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)
+                ),
+                onPressed: () async
+                {
                   Navigator.pop(context);
                   Navigator.pop(context);
                   AssistantMethods.enableHomeTabLiveLocationUpdates();
                 },
-                color: Colors.deepPurple,
+                color:Color(0xff00ACA4),
                 child: Padding(
-                  padding: EdgeInsets.all(17.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Collect Cash ",style: TextStyle(fontSize: 18.0,fontFamily: "Brand Bolt",fontWeight: FontWeight.bold,color: Colors.white),),
-                      Icon(Icons.attach_money,color: Colors.white,size: 26,),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 30.0,),
+                    padding: EdgeInsets.symmetric(vertical: 20,horizontal: 0),
+                    child:Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "Collect Cash",
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    Icon(
+                      Icons.attach_money_outlined,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ],
+                )))),
           ],
-        ),
+        )),
       ),
     );
   }

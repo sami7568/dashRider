@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.4
   firebase_core: ^1.10.6
   firebase_auth: ^3.3.4
@@ -18,18 +17,23 @@ dependencies:
   fluttertoast: ^8.0.8
   google_maps_flutter: ^2.1.1
   geolocator: ^8.0.1
+  file_picker: ^4.2.7
+  firebase_storage:
   http: ^0.13.4
   provider: ^6.0.2
   flutter_polyline_points: ^1.0.0
   font_awesome_flutter: ^9.2.0
   animated_text_kit: ^4.2.1
   flutter_geofire: ^2.0.1
-  firebase_messaging: ^11.2.5
-  assets_audio_player: ^3.0.3+9
+  firebase_messaging: ^10.0.6
+  overlay_support: ^1.2.1
+  assets_audio_player: any
   maps_toolkit: ^2.0.0
   flutter_switch: ^0.3.2
   intl: ^0.17.0
   smooth_star_rating: ^1.1.1
+  shared_preferences_android:
+  image_picker:
 
 dev_dependencies:
   flutter_test:

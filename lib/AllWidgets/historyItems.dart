@@ -15,6 +15,7 @@ class HistoryItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+
             child: Row(
               children: <Widget>[
                 Image.asset("images/pickicon.png",height: 16,width: 16,),

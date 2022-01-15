@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:dashdriver/AllScreen/loginScreen.dart';
+import 'package:dashdriver/AllScreen/newRideScreen.dart';
 import 'package:dashdriver/AllScreen/registrationScreen.dart';
+import 'package:dashdriver/AllWidgets/collectFareDialog.dart';
 import 'package:dashdriver/Models/drivers.dart';
+import 'package:dashdriver/Notifications/notificationDialog.dart';
 import 'package:dashdriver/Notifications/pushNotificationsService.dart';
 import 'package:dashdriver/assistant/assistantMethods.dart';
 import 'package:dashdriver/configMaps.dart';
@@ -9,9 +12,15 @@ import 'package:dashdriver/main.dart';
 import 'package:dashdriver/tabPages/earningTabPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -70,13 +79,16 @@ class _HomeTabPageState extends State<HomeTabPage> {
     newGoogleMapController
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
-
+String? _token;
+  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+  bool drawerOpen=true;
   @override
   void initState() {
     super.initState();
     getCurrentDriverInfo();
     locatePosition();
     print("initstate called");
+
   }
 
   void getCurrentDriverInfo() async {
@@ -94,7 +106,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
     PushNotificationsService pushNotificationService =
         PushNotificationsService();
-   // pushNotificationService.initialize(context);
+    pushNotificationService.initialize(context);
     pushNotificationService.getToken();
     AssistantMethods.retrieveHistoryInfo(context);
     getRatings();
@@ -110,9 +122,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            appBar: AppBar(
-             title: Center(child: Text('Driver App')),
-      ),
+      key: scaffoldKey,
       drawer: Drawer(
 
         child: ListView(
@@ -273,30 +283,57 @@ class _HomeTabPageState extends State<HomeTabPage> {
               locatePosition();
             },
           ),
-         /* Container(
-            height: 40.0,
+          //Menu Button
+          Positioned(
+            top: 70.0,
+            left: 32.0,
+            child: GestureDetector(
+              onTap: (){
+                if(drawerOpen){
+                  scaffoldKey.currentState!.openDrawer();
+                }
+                else{
+
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black87,
+                  borderRadius: BorderRadius.circular(22.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black,
+                      blurRadius: 6.0,
+                      spreadRadius: 0.5,
+                      offset: Offset(0.7,0.7),
+                    ),
+                  ],
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Icon((drawerOpen)? Icons.menu: Icons.close,color: Colors.black,),
+                ),
+              ),
+            ),
+          ),
+
+          //driver status container
+          Container(
+            height: 120.0,
             width: double.infinity,
-          *//*  color: Colors.blue,*//*
-          ),*/
-/*          Positioned(
-            top: 20,
+            color: Colors.white,
+          ),
+          Positioned(
+            top: 50,
             left: 0.0,
             right: 0.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: TextButton(
-                      style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.blue),
-                              ),
-                          ),
-
-                      ),
+            child: Padding(
+                  padding: EdgeInsets.fromLTRB(70, 0, 70, 0),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xff00ACA4)
+                    ),
+                    child:TextButton(
                     onPressed: () {
                       if (isDriverAvailable != true) {
                         setState(() {
@@ -319,32 +356,19 @@ class _HomeTabPageState extends State<HomeTabPage> {
                       }
                     },
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(child:Text(
                             driverStatusText,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.blue),
-                          ),
-                          SizedBox(width:10),
-                          Icon(
-                            Icons.phone_android,
-                            color: Colors.blue,
-                            size: 28,
-                          ),
-
-                        ],
+                                color: Colors.white),
+                          )
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),*/
+                )),
+          ),
         ],
       ),
     );
