@@ -8,6 +8,7 @@ class AppData extends ChangeNotifier{
   List<String> tripHistoryKeys=[];
   List<History> tripHistoryDataList=[];
 
+
   void updateEarnings(String updateEarnings){
     earnings=updateEarnings;
     notifyListeners();

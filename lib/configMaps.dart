@@ -9,7 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'Models/drivers.dart';
 
 int noOfPassengers=1;
-String mapKey="AIzaSyAdCZ8sH4YKUOVNFLlhIm1onR001uJIPAM";
+String mapKey="AIzaSyDpMdWRGTnY4YzKvIUFCD0KkwWtR34nn2Y";
 
 int numberOfRidersSeatsCount=0;
 int maxNumberOfRidersSeats=4;

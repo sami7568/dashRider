@@ -92,20 +92,20 @@ String? _token;
   }
 
   void getCurrentDriverInfo() async {
+    print("firebase user${currentfirebaseUSer!.uid} ");
     currentfirebaseUSer = await FirebaseAuth.instance.currentUser;
     driversRef
         .child(currentfirebaseUSer!.uid)
         .once()
         .then((DatabaseEvent dataSnapshot) {
-      if (dataSnapshot.snapshot.value != null) {
+      if (dataSnapshot != null) {
         driversInformation = Drivers.fromSnapshot(dataSnapshot);
         print("driversINfo::");
         print(driversInformation!.name);
       }
     });
 
-    PushNotificationsService pushNotificationService =
-        PushNotificationsService();
+    PushNotificationsService pushNotificationService = PushNotificationsService();
     pushNotificationService.initialize(context);
     pushNotificationService.getToken();
     AssistantMethods.retrieveHistoryInfo(context);

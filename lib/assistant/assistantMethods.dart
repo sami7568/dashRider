@@ -82,7 +82,7 @@ class AssistantMethods {
         String earnings = dataSnapshot.snapshot.value.toString();
         Provider.of<AppData>(context, listen: false).updateEarnings(earnings);
       } else {
-        displayToastMessage("no Earnings yet", context);
+       // displayToastMessage("no Earnings yet", context);
       }
     });
 
@@ -92,9 +92,9 @@ class AssistantMethods {
         .child("history")
         .once()
         .then((DatabaseEvent dataSnapshot) {
-      if (dataSnapshot.snapshot != null) {
+      if (dataSnapshot.snapshot.value != null) {
         //update the total number of trip counts
-        Map<dynamic, dynamic>? keys = dataSnapshot.snapshot.value as Map?;
+        dynamic keys = dataSnapshot.snapshot.value as Map;
         int tripCounter = keys!.length;
         Provider.of<AppData>(context, listen: false)
             .updateTripCounter(tripCounter);

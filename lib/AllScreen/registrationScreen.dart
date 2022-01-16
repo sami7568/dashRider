@@ -91,13 +91,13 @@ String dLicence = "Upload";
                       //value: rideType,
                       isExpanded: true,
                       items:const [
-                        DropdownMenuItem(child: Text('Car'),value: "car",),
+                        DropdownMenuItem(child: Text('MVP'),value: "mvp",),
                         DropdownMenuItem(child: Text('BASIC'),value: "basic",),
                         DropdownMenuItem(child: Text('Bike'),value: "bike",),
                       ],
-                      onChanged: (value){
+                      onChanged: (val){
                         setState(() {
-                          rideType=value!;
+                          rideType=val!;
                         });
                       },
                     ),
@@ -363,6 +363,7 @@ String dLicence = "Upload";
         "car_model":carModeltextEditingController.text,
         "ride_type":rideType,
         "approve":"false",
+        "history":"null",
       };
       currentfirebaseUSer = firebaseUser;
       driversRef.child(firebaseUser.uid).set(userDataMap);
