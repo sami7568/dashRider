@@ -113,11 +113,6 @@ String? _token;
     getRideType();
   }
 
-  @override
-  void deactivate() {
-    super.deactivate();
-    print("deactivate");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -415,16 +410,16 @@ String? _token;
   }
 
   getRideType() {
+    print(currentfirebaseUSer!.uid);
     driversRef
         .child(currentfirebaseUSer!.uid)
-        .child("car_details")
         .child("ride_type")
         .once()
         .then((DatabaseEvent snapshot) {
       if (snapshot.snapshot.value != null) {
-        setState(() {
+
           rideType = snapshot.snapshot.value.toString();
-        });
+          print(rideType);
       }
     });
     print("ride type");

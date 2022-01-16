@@ -51,8 +51,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   static final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-
   @override
   void initState() {
 

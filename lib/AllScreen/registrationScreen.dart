@@ -353,14 +353,17 @@ String dLicence = "Upload";
     })).user;
 
     if(firebaseUser !=null){
+      Map cardetails = {
+        "car_color":carColortextEditingController.text,
+        "car_number":carNumbertextEditingController.text,
+        "car_model":carModeltextEditingController.text,
+      };
       Map userDataMap= {
         "name":nameTextEditingController.text.trim(),
         "email":emailTextEditingController.text.trim(),
         "phone":phoneTextEditingController.text.trim(),
         "password":passwordTextEditingController.text.trim(),
-        "car_color":carColortextEditingController.text,
-        "car_number":carNumbertextEditingController.text,
-        "car_model":carModeltextEditingController.text,
+        "car_details":cardetails,
         "ride_type":rideType,
         "approve":"false",
         "history":"null",

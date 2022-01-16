@@ -38,8 +38,7 @@ class _NotApprovedState extends State<NotApproved> {
           print(checkstatus.toString());{
             if (checkstatus=="true") {
 
-                Navigator.pushNamedAndRemoveUntil(
-               context, MainScreen.idScreen, (route) => false);
+                Navigator.pushNamedAndRemoveUntil(context, MainScreen.idScreen, (route) => false);
              //displayToastMessage("your are logged in", context);
             }
         }

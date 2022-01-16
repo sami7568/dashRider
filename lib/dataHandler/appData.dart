@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class AppData extends ChangeNotifier{
 
   String earnings="0";
-  int tripCount=0;
+  int? tripCount=0;
   List<String> tripHistoryKeys=[];
   List<History> tripHistoryDataList=[];
 
@@ -14,8 +14,8 @@ class AppData extends ChangeNotifier{
     notifyListeners();
   }
 
-  void updateTripCounter(int tripCounter){
-    tripCount = tripCounter;
+  void updateTripCounter(int? tripCounter){
+    tripCount = tripCounter!;
     notifyListeners();
   }
 

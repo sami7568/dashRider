@@ -94,10 +94,13 @@ class AssistantMethods {
         .then((DatabaseEvent dataSnapshot) {
       if (dataSnapshot.snapshot.value != null) {
         //update the total number of trip counts
-        dynamic keys = dataSnapshot.snapshot.value as Map;
-        int tripCounter = keys!.length;
-        Provider.of<AppData>(context, listen: false)
-            .updateTripCounter(tripCounter);
+        Map<dynamic, dynamic>? keys = dataSnapshot.snapshot.value as Map?;
+        int? tripCounter = keys!.length;
+        if (tripCounter==null) {
+          return;
+        }
+        else{
+        Provider.of<AppData>(context, listen: false).updateTripCounter(tripCounter);
         //update trip keys to providers
         List<String> tripHistoryKeys = [];
         keys.forEach((key, value) {
@@ -106,7 +109,7 @@ class AssistantMethods {
         Provider.of<AppData>(context, listen: false)
             .updatTripKeys(tripHistoryKeys);
         obtainTripRequestHistoryData(context);
-      }
+      }}
     });
   }
 
