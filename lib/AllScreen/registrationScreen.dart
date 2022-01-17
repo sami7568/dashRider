@@ -357,6 +357,7 @@ String dLicence = "Upload";
         "car_color":carColortextEditingController.text,
         "car_number":carNumbertextEditingController.text,
         "car_model":carModeltextEditingController.text,
+        "ride_type":rideType,
       };
       Map userDataMap= {
         "name":nameTextEditingController.text.trim(),
@@ -364,7 +365,6 @@ String dLicence = "Upload";
         "phone":phoneTextEditingController.text.trim(),
         "password":passwordTextEditingController.text.trim(),
         "car_details":cardetails,
-        "ride_type":rideType,
         "approve":"false",
         "history":"null",
       };

@@ -3,10 +3,9 @@ import 'package:dashdriver/configMaps.dart';
 import 'package:flutter/material.dart';
 
 class CollectFareDialog extends StatelessWidget {
-  final String? paymentMethod;
   final int? fareAmount;
 
-  CollectFareDialog({this.paymentMethod,this.fareAmount});
+  CollectFareDialog({Key? key, this.fareAmount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

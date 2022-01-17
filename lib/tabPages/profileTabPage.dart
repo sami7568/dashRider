@@ -43,11 +43,11 @@ class ProfileTabPage extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              InfoCard(driversInformation!.phone!.isEmpty? " 38048747679":driversInformation!.phone, Icons.phone,),
-              InfoCard(driversInformation!.email!.isEmpty ?" sami@gmail.com":driversInformation!.email!,
+              InfoCard(driversInformation==null? " 38048747679":driversInformation!.phone, Icons.phone,),
+              InfoCard(driversInformation==null ?" sami@gmail.com":driversInformation!.email!,
                  Icons.email
               ),
-              InfoCard( driversInformation!.car_number!.isEmpty?"BMW Black 930A" :driversInformation!.car_color!+driversInformation!.car_model!+driversInformation!.car_number!,Icons.car_repair),
+              InfoCard( driversInformation==null?"BMW Black 930A" :driversInformation!.car_color!+" " +driversInformation!.car_model!+" "+driversInformation!.car_number!,Icons.car_repair),
               GestureDetector(
                 onTap: (){
                   Geofire.removeLocation(driversInformation!.id!);

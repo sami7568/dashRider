@@ -45,12 +45,13 @@ class PushNotificationsService{
     firebaseMessaging.subscribeToTopic("alldrivers");
     firebaseMessaging.subscribeToTopic("allusers");
   }
-  String getRideRequestId(Map<String, dynamic> message){
+
+   String getRideRequestId(Map<String, dynamic> message){
     String rideRequestId="";
     print("getting ride resquest id");
     if (Platform.isAndroid) {
       print('this is rider request id');
-      rideRequestId = message['data']['ride_request_id'];
+      rideRequestId = message['ride_request_id'];
       print(rideRequestId.toString());
     }
     else{
@@ -61,7 +62,7 @@ class PushNotificationsService{
     return rideRequestId;
   }
 
-  void retrieveRideRequestInfo(String ride_request_id, BuildContext context){
+   void retrieveRideRequestInfo(String ride_request_id, BuildContext context){
    print("retrieving ride request Information");
    print(ride_request_id);
     newRequestsRef.child(ride_request_id).once().then((DatabaseEvent dataSnapshot){
@@ -77,8 +78,6 @@ class PushNotificationsService{
         double dropoffLocationLat = double.parse(routeArgs['dropOff']['latitude'].toString());
         double dropoffLocationLng = double.parse(routeArgs['dropOff']['longitude'].toString());
         String dropOffAddress = routeArgs['drop_Off_Location'].toString();
-        String paymentMethod = routeArgs['payment_method'].toString();
-
         String rider_name = routeArgs["rider_name"];
         String rider_phone = routeArgs["rider_phone"];
 
@@ -88,7 +87,6 @@ class PushNotificationsService{
         rideDetails.dropoff_address=dropOffAddress;
         rideDetails.pickup = LatLng(pickupLocationLat,pickupLocationLng);
         rideDetails.dropoff = LatLng(dropoffLocationLat,dropoffLocationLng);
-        rideDetails.payment_method =paymentMethod;
         rideDetails.rider_name= rider_name;
         rideDetails.rider_phone=  rider_phone;
 

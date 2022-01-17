@@ -405,7 +405,7 @@ String? _token;
     DatabaseReference rideRequestRef = FirebaseDatabase.instance.reference().child("drivers").child(currentfirebaseUSer!.uid).child("newRide");
     rideRequestRef.onDisconnect();
     rideRequestRef.remove();
-    rideRequestRef = null!;
+    //rideRequestRef=null!;
     displayToastMessage("you are offline now", context);
   }
 
@@ -413,11 +413,11 @@ String? _token;
     print(currentfirebaseUSer!.uid);
     driversRef
         .child(currentfirebaseUSer!.uid)
+        .child("car_details")
         .child("ride_type")
         .once()
         .then((DatabaseEvent snapshot) {
       if (snapshot.snapshot.value != null) {
-
           rideType = snapshot.snapshot.value.toString();
           print(rideType);
       }

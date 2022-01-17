@@ -37,7 +37,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
   double mapPaddingFromBottom=0;
   var geolocator= Geolocator();
   //var locationOptions= LocationOptions(accuracy: LocationAccuracy.bestForNavigation);
-  late BitmapDescriptor animatingMarkerIcon;
+  BitmapDescriptor? animatingMarkerIcon;
   late Position myPosition;
   String status="accepted";
   String durationRide="";
@@ -49,8 +49,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
 
   @override
   void initState() {
-    super.initState();
     acceptRideRequest();
+    super.initState();
   }
 
   void createIconMarker(){
@@ -75,7 +75,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
       Marker animatingMarker=Marker(
         markerId:MarkerId("animating"),
         position: mPosition,
-        icon: animatingMarkerIcon,
+        icon: animatingMarkerIcon!,
         rotation: rot.toDouble(),
         infoWindow: InfoWindow(title: "current Location"),
       );
@@ -287,7 +287,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                /*"btn_title"*/"Arrived",
+                                btn_title,
                                 style: TextStyle(
                                     fontSize: 17.0,
                                     fontWeight: FontWeight.bold,
@@ -480,7 +480,7 @@ print("pickup :  $pickUpLatlng , drop of : $dropOffLatlng");
     showDialog(
       context:context,
       barrierDismissible: false,
-      builder: (BuildContext context)=>CollectFareDialog(paymentMethod: widget.rideDetails!.payment_method,fareAmount: fareAmount,),
+      builder: (BuildContext context)=>CollectFareDialog(fareAmount: fareAmount,),
     );
     saveEarning(fareAmount);
   }

@@ -21,11 +21,11 @@ class ProgressDialog extends StatelessWidget {
           child: Row(
             children: <Widget>[
               SizedBox(width: 6.0,),
-              CircularProgressIndicator( valueColor: AlwaysStoppedAnimation<Color>(Colors.green),),
+              CircularProgressIndicator( valueColor: AlwaysStoppedAnimation<Color>(Color(0xff00ACA4)),),
               SizedBox(width: 26.0,),
               Text(
                 message!,
-                style: TextStyle(color: Colors.green,fontSize: 10.0),
+                style: TextStyle(color: Color(0xff00ACA4),fontSize: 10.0),
               ),
             ],
           ),

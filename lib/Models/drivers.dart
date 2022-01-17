@@ -18,9 +18,9 @@ class Drivers{
     phone=routeArgs['phone'];
     email=routeArgs['email'];
     name=routeArgs['name'];
-    car_color=routeArgs['car_color'];
-    car_model=routeArgs['car_model'];
-    car_number=routeArgs['car_number'];
-    ride_type=routeArgs['ride_type'];
+    car_color=routeArgs['car_details']['car_color'];
+    car_model=routeArgs['car_details']['car_model'];
+    car_number=routeArgs['car_details']['car_number'];
+    ride_type=routeArgs['car_details']['ride_type'];
   }
 }

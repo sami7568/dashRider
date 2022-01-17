@@ -18,7 +18,7 @@ Position? currentPosition;
 User? firebaseUser;
 final assetAudioPlayer = AssetsAudioPlayer();
 Users? userCurrentInfo;
-Drivers? driversInformation=Drivers(name: "",email: "",phone: "",id: "",car_color: "",car_model: "",car_number: "",);
+Drivers? driversInformation=Drivers();
 
 User? currentfirebaseUSer;
 Color driverStatusColor = Colors.black;

@@ -27,6 +27,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
+
   print('Handling a background message ${message.messageId}');
 }
 
@@ -53,50 +54,30 @@ class _MyAppState extends State<MyApp> {
   static final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   @override
   void initState() {
-
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if(message!=null){
+    FirebaseMessaging.instance.getInitialMessage().then((message) {if(message!=null){
         final routeFromMessage= message.data;
         print(routeFromMessage);
+        PushNotificationsService().initialize(context);
         /*Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ProfileTabPage(),
           ),
         );*/
-      }
-    });
-
+      }});
     //foreground message
     FirebaseMessaging.onMessage.listen((message) {
       if(message.notification!=null){
         print(message.notification.body);
         print(message.notification.title);
+        PushNotificationsService().initialize(context);
 
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) => NotificationDialog(rideDetails:null),
-        );
-        //notificationDialogue
-       // showNotification();
-        /*AlertAz(
-          title: (message.data).toString(),
-          context: context,
-        ).show();
-        if (message.notification != null) {
-          print('Message also contained a notification: ${message.notification}');
-          AlertAz(
-            title: (message.notification).toString(),
-            context: context,
-          ).show();*/
       }
         else{
           print("null message");
       }
      // LocalNotificationService.display(message);
     });
-
     //only works when the app is in the background and open
     //when user tap on the notification
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
@@ -108,10 +89,13 @@ class _MyAppState extends State<MyApp> {
             builder: (context) => ProfileTabPage(),
           ),
         );*/
+
+       PushNotificationsService().initialize(context);
+
         print(routeFromMesssage);
       }
     });
-
+    super.initState();
   } // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
